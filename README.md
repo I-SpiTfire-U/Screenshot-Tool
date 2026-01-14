@@ -1,5 +1,8 @@
 # Screenshot-Tool
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Author](https://img.shields.io/badge/Author-I--SpiTfire--U-181717?logo=github)](https://github.com/I-SpiTfire-U)
+
 > A super basic screen-shotting utility for Linux that uses Grim and Slurp. 
 
 ## Building and Running
