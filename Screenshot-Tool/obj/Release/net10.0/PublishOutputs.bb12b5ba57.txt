@@ -1,0 +1,5 @@
+/home/alexis/Code/Projects/Software/C-Sharp/Console/Screenshot-Tool/out/Screenshot-Tool
+/home/alexis/Code/Projects/Software/C-Sharp/Console/Screenshot-Tool/out/Screenshot-Tool.dll
+/home/alexis/Code/Projects/Software/C-Sharp/Console/Screenshot-Tool/out/Screenshot-Tool.deps.json
+/home/alexis/Code/Projects/Software/C-Sharp/Console/Screenshot-Tool/out/Screenshot-Tool.runtimeconfig.json
+/home/alexis/Code/Projects/Software/C-Sharp/Console/Screenshot-Tool/out/Screenshot-Tool.pdb
