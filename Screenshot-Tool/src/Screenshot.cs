@@ -45,12 +45,14 @@ public static class Screenshot
             ? windowClass.Split('.').Last()
             : windowClass;
 
-        string fileName = Path.GetFileName(screenshotPath).Insert(11, $"{windowName}_");
+        string fileName = $"{Path.GetFileNameWithoutExtension(screenshotPath)}_{windowName}";
+        string fileExtension = Path.GetExtension(screenshotPath);
         string directoryName = Path.GetDirectoryName(screenshotPath)!;
 
-        screenshotPath = Path.Combine(directoryName, fileName);
+        screenshotPath = Path.Combine(directoryName, $"{fileName}{fileExtension}");
 
         HideWindow();
+        FocusWindow(windowClass);
         GrimScreenshot(screenshotPath, availableWindows[selectedWindow].GetGeometryAsString());
     }
 
@@ -133,6 +135,23 @@ public static class Screenshot
         hyprctlProcess.Start();
         hyprctlProcess.WaitForExit();
         
-        Thread.Sleep(200);
+        Thread.Sleep(300);
+    }
+
+    private static void FocusWindow(string windowClass)
+    {
+        string[] arguments =
+        [
+            "dispatch",
+            "focuswindow",
+            $"class:{windowClass}",
+        ];
+
+        using Process hyprctlProcess = ProcessHelper.CreateProcess("hyprctl", redirectStdIn: false, redirectStdOut: false, args: arguments);
+        
+        hyprctlProcess.Start();
+        hyprctlProcess.WaitForExit();
+
+        Thread.Sleep(300);
     }
 }
