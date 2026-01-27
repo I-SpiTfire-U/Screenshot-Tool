@@ -25,4 +25,4 @@ public sealed class MonitorInfo
 
 [JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
 [JsonSerializable(typeof(MonitorInfo[]))]
-internal partial class ScreenshotJsonContext : JsonSerializerContext;
+internal partial class MonitorJsonContext : JsonSerializerContext;

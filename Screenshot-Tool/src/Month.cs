@@ -1,6 +1,6 @@
 namespace Screenshot_Tool.src;
 
-public enum Month
+public enum Month : byte
 {
     January = 1,
     February = 2,

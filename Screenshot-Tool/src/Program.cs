@@ -15,7 +15,8 @@ public class Program
         {
             { "Fullscreen",  ()=> Screenshot.ScreenshotFullscreen(screenshotPath) },
             { "Monitor",     ()=> Screenshot.ScreenshotMonitor(screenshotPath)    },
-            { "Area-Select", ()=> Screenshot.ScreenshotAreaSelect(screenshotPath) }
+            { "Area-Select", ()=> Screenshot.ScreenshotAreaSelect(screenshotPath) },
+            { "Window",      ()=> Screenshot.ScreenshotWindow(screenshotPath)     }
         };
 
         int i = Menus.CreateMenu(screenshotOptions.Keys);

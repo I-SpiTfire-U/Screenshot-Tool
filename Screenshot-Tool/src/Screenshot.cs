@@ -30,6 +30,30 @@ public static class Screenshot
         GrimScreenshot(screenshotPath, GetSlurpGeometry());
     }
 
+    public static void ScreenshotWindow(string screenshotPath)
+    {
+        WindowInfo[] availableWindows = Windows.GetAvailableWindows();
+        int selectedWindow = Menus.CreateMenu([.. availableWindows.Select(m => m.Class)]);
+
+        if (selectedWindow < 0)
+        {
+            return;
+        }
+
+        string windowClass = availableWindows[selectedWindow].Class;
+        string windowName = windowClass.Contains('.')
+            ? windowClass.Split('.').Last()
+            : windowClass;
+
+        string fileName = Path.GetFileName(screenshotPath).Insert(11, $"{windowName}_");
+        string directoryName = Path.GetDirectoryName(screenshotPath)!;
+
+        screenshotPath = Path.Combine(directoryName, fileName);
+
+        HideWindow();
+        GrimScreenshot(screenshotPath, availableWindows[selectedWindow].GetGeometryAsString());
+    }
+
     private static void GrimScreenshot(string resultPath, string? geometry = null, bool copyToClipboard = true)
     {
         if (geometry == string.Empty)
@@ -97,12 +121,18 @@ public static class Screenshot
 
     private static void HideWindow()
     {
-        string[] arguments = ["dispatch", "movetoworkspacesilent", "special:1"];
-        using Process hyprctlProcess = ProcessHelper.CreateProcess("hyprctl", redirectStdIn: false, redirectStdOut: false, args: arguments);
+        string[] arguments =
+        [
+            "dispatch",
+            "movetoworkspacesilent",
+            "special:1,class:screenshot-tool",
+        ];
 
+        using Process hyprctlProcess = ProcessHelper.CreateProcess("hyprctl", redirectStdIn: false, redirectStdOut: false, args: arguments);
+        
         hyprctlProcess.Start();
         hyprctlProcess.WaitForExit();
-
+        
         Thread.Sleep(200);
     }
 }

@@ -3,11 +3,11 @@ using System.Text.Json;
 
 namespace Screenshot_Tool.src;
 
-public static class Monitors
+public static class Windows
 {
-    public static MonitorInfo[] GetAvailableMonitors()
+    public static WindowInfo[] GetAvailableWindows()
     {
-        string[] arguments = ["monitors", "-j"];
+        string[] arguments = ["clients", "-j"];
         using Process process = ProcessHelper.CreateProcess("hyprctl", redirectStdIn: false, redirectStdOut: true, args: arguments);
 
         process.Start();
@@ -16,10 +16,10 @@ public static class Monitors
 
         process.WaitForExit();
 
-        MonitorInfo[]? monitors = JsonSerializer.Deserialize(processOutput, MonitorJsonContext.Default.MonitorInfoArray);
+        WindowInfo[]? windows = JsonSerializer.Deserialize(processOutput, WindowJsonContext.Default.WindowInfoArray);
 
-        return monitors is not null
-            ? monitors
+        return windows is not null
+            ? windows
             : throw new InvalidOperationException("Failed to parse monitor information.");
     }
 }
