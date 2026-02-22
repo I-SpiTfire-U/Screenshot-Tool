@@ -33,26 +33,22 @@ public static class Screenshot
     public static void ScreenshotWindow(string screenshotPath)
     {
         WindowInfo[] availableWindows = Windows.GetAvailableWindows();
-        int selectedWindow = Menus.CreateMenu([.. availableWindows.Select(m => m.Class)]);
+        int selectedWindow = Menus.CreateMenu([.. availableWindows.Select(m => m.DisplayTitle)]);
 
         if (selectedWindow < 0)
         {
             return;
         }
 
-        string windowClass = availableWindows[selectedWindow].Class;
-        string windowName = windowClass.Contains('.')
-            ? windowClass.Split('.').Last()
-            : windowClass;
-
-        string fileName = $"{Path.GetFileNameWithoutExtension(screenshotPath)}_{windowName}";
+        string windowTitle = availableWindows[selectedWindow].Title;
+        string fileName = $"{Path.GetFileNameWithoutExtension(screenshotPath)}_{windowTitle}";
         string fileExtension = Path.GetExtension(screenshotPath);
         string directoryName = Path.GetDirectoryName(screenshotPath)!;
 
         screenshotPath = Path.Combine(directoryName, $"{fileName}{fileExtension}");
 
         HideWindow();
-        FocusWindow(windowClass);
+        FocusWindow(availableWindows[selectedWindow].Class);
         GrimScreenshot(screenshotPath, availableWindows[selectedWindow].GetGeometryAsString());
     }
 

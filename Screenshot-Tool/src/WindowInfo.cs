@@ -4,6 +4,11 @@ namespace Screenshot_Tool.src;
 
 public sealed class WindowInfo
 {
+    public string DisplayTitle { get; set; } = string.Empty;
+
+    [JsonPropertyName("title")]
+    public string Title { get; init; } = string.Empty;
+
     [JsonPropertyName("class")]
     public string Class { get; init; } = string.Empty;
 
