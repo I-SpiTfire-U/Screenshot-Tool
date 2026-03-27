@@ -3,7 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Author](https://img.shields.io/badge/Author-I--SpiTfire--U-181717?logo=github)](https://github.com/I-SpiTfire-U)
 
-> A super basic screen-shotting utility for Linux that uses Grim and Slurp. 
+> A super basic screen-shotting utility for Linux that uses Grim and Slurp.
 
 ## Building and Running
 
@@ -28,3 +28,7 @@ Select the runtime ID for whichever platform you are building for, a list of ava
 ```sh
 dotnet publish -c Release -r <RID> --self-contained -o out
 ```
+
+## Configuration
+
+> class=title matches can be added to change the way specific windows show up in the window list through a config file located in ~/.config/screenshot-tool/class_mappings.conf

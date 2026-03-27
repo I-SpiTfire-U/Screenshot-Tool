@@ -61,26 +61,14 @@ public static class HyprlandProvider
   private static String GetTerminalDisplayTitle(String windowTitle)
   {
     String title = windowTitle;
-    if (title.StartsWith("Yazi: ", StringComparison.Ordinal))
+    if (windowTitle.StartsWith("Yazi:", StringComparison.OrdinalIgnoreCase))
     {
-      title = title[6..];
+      return "Yazi";
     }
 
     if (title.StartsWith('~') || title.StartsWith('/'))
     {
-      title = title.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-      String? folderName = Path.GetFileName(title);
-
-      if (String.IsNullOrWhiteSpace(folderName) || folderName == "~")
-      {
-        folderName = "Home";
-      }
-      else if (folderName == "/")
-      {
-        folderName = "Root";
-      }
-
-      title = $"Shell - {folderName}";
+      title = $"Shell";
     }
 
     return title;
@@ -109,7 +97,7 @@ public static class HyprlandProvider
 
     if (!File.Exists(configPath))
     {
-      File.WriteAllText(configPath, String.Empty);
+      File.WriteAllText(configPath, "# Any matches listed below will be converted to the given title when listed.\nClasses do not need to be exact, they just need to contain a part of the class name.\nExample:\n# wezterm = Wezterm Terminal");
     }
 
     foreach (String line in File.ReadAllLines(configPath))
