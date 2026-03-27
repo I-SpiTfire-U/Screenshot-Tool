@@ -97,7 +97,7 @@ public static class HyprlandProvider
 
     if (!File.Exists(configPath))
     {
-      File.WriteAllText(configPath, "# Any matches listed below will be converted to the given title when listed.\n#Classes do not need to be exact, they just need to contain a part of the class name.\n#Example:\n# wezterm = Wezterm Terminal");
+      File.WriteAllText(configPath, "# Any matches listed below will be converted to the given title when listed.\n#Classes do not need to be exact, they just need to contain a part of the class name.\n#Example:\n\n# wezterm = Wezterm Terminal");
     }
 
     foreach (String line in File.ReadAllLines(configPath))
