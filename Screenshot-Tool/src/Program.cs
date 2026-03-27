@@ -1,51 +1,28 @@
-﻿using System.Data;
-using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.VisualBasic.FileIO;
+using Screenshot_Tool.src.Enums;
 
 namespace Screenshot_Tool.src;
 
 public class Program
 {
-	public static void Main(string[] args)
-	{
-        Console.CursorVisible = false;
+  public static void Main(String[] args)
+  {
+    Console.CursorVisible = false;
 
-        string screenshotPath = ConstructScreenshotPath(args.Length > 0 ? args[0] : SpecialDirectories.MyPictures);
+    Int32 selectedOption = Menus.CreateMenu(["Area-Select", "Window", "Monitor", "Fullscreen"]);
 
-        Dictionary<string, Action> screenshotOptions = new()
-        {
-            { "Fullscreen",  ()=> Screenshot.ScreenshotFullscreen(screenshotPath) },
-            { "Monitor",     ()=> Screenshot.ScreenshotMonitor(screenshotPath)    },
-            { "Area-Select", ()=> Screenshot.ScreenshotAreaSelect(screenshotPath) },
-            { "Window",      ()=> Screenshot.ScreenshotWindow(screenshotPath)     }
-        };
-
-        int i = Menus.CreateMenu(screenshotOptions.Keys);
-        if (i >= 0)
-        {
-            screenshotOptions.ElementAt(i).Value.Invoke();
-        }
-
-        Console.CursorVisible = true;
-    }
-
-    private static string ConstructScreenshotPath(string baseDirectory)
+    if (selectedOption == -1)
     {
-        string fileName = $"Screenshot_{DateTime.Now:yyyyMMdd_HHmmss}";
-        string? month = Enum.GetName(Enum.Parse<Month>(DateTime.Now.Month.ToString()));
-        string year = DateTime.Now.Year.ToString();
-
-        if (string.IsNullOrEmpty(month))
-        {
-            throw new NoNullAllowedException();
-        }
-
-        string screenshotDirectory = Path.Combine(baseDirectory, "Screenshots", year, month);
-
-        if (!Directory.Exists(screenshotDirectory))
-        {
-            Directory.CreateDirectory(screenshotDirectory);
-        }
-
-        return Path.Combine(screenshotDirectory, fileName);
+      Console.CursorVisible = true;
+      return;
     }
+
+    ScreenshotType screenshotType = (ScreenshotType)selectedOption;
+    ScreenShotting.TakeScreenshot(CustomDirectoryExists(args) ? args[0] : SpecialDirectories.MyPictures, screenshotType);
+
+    Console.CursorVisible = true;
+  }
+
+  private static Boolean CustomDirectoryExists(String[] args) =>
+    args.Length > 0 && Directory.Exists(args[0]);
 }

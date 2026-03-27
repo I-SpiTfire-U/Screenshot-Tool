@@ -28,4 +28,3 @@ Select the runtime ID for whichever platform you are building for, a list of ava
 ```sh
 dotnet publish -c Release -r <RID> --self-contained -o out
 ```
-
