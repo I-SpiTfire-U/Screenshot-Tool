@@ -10,7 +10,6 @@ public class Program
     Console.CursorVisible = false;
 
     Int32 selectedOption = Menus.CreateMenu(["Area-Select", "Window", "Monitor", "Fullscreen"]);
-
     if (selectedOption == -1)
     {
       Console.CursorVisible = true;

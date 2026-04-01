@@ -6,16 +6,17 @@ public static class ProcessHelper
 {
   public static Process CreateProcess(String name, Boolean redirectStdIn, Boolean redirectStdOut, String[] args)
   {
-    ProcessStartInfo processStartInfo = new(name, args)
+    return new()
     {
-      UseShellExecute = false,
-      RedirectStandardInput = redirectStdIn,
-      RedirectStandardOutput = redirectStdOut,
-      RedirectStandardError = false,
-      CreateNoWindow = true
+      StartInfo = new ProcessStartInfo(name, args)
+      {
+        UseShellExecute = false,
+        RedirectStandardInput = redirectStdIn,
+        RedirectStandardOutput = redirectStdOut,
+        RedirectStandardError = false,
+        CreateNoWindow = true
+      }
     };
-
-    return new() { StartInfo = processStartInfo };
   }
 
   public static void RunHyprctlProcess(params String[] arguments)

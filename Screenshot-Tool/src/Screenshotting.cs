@@ -94,11 +94,8 @@ public static class ScreenShotting
       result = default;
       return false;
     }
-    else
-    {
-      result = items[selectedIndex];
-      return true;
-    }
+    result = items[selectedIndex];
+    return true;
   }
 
   private static void GrimScreenshot(String screenshotPath, String geometry)
